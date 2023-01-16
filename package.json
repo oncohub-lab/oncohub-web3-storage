@@ -1,0 +1,11 @@
+{
+  "name": "onco-hub-web3storage",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "app.ts",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "dotenv": "^16.0.3"
+  }
+}
