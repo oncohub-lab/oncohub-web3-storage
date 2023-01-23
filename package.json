@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "app.ts",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "web3.storage": "^4.4.0"
+  },
   "devDependencies": {
     "dotenv": "^16.0.3"
   }
