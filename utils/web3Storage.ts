@@ -7,8 +7,7 @@ import { Web3Storage, getFilesFromPath } from 'web3.storage';
  * @returns Web3Storage client ganerated based on given api token
  */
 export function getWeb3StorageClient(token: string) {
-  const client = new Web3Storage({ token });
-  return client;
+  return new Web3Storage({ token });
 }
 
 /**
