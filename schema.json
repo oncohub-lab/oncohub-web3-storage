@@ -1,0 +1,176 @@
+{
+  "name": "oh-root",
+  "children": [
+    {
+      "name": "sarcoma",
+      "children": [
+        {
+          "name": "soft-tissue-sarcoma",
+          "children": [
+            {
+              "name": "GIST",
+              "children": [
+                {
+                  "name": "genomics",
+                  "children": []
+                },
+                {
+                  "name": "dicom",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "liposarcoma",
+              "children": [
+                {
+                  "name": "genomics",
+                  "children": []
+                },
+                {
+                  "name": "dicom",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "leiomyosarcoma",
+              "children": [
+                {
+                  "name": "genomics",
+                  "children": []
+                },
+                {
+                  "name": "dicom",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "UPS",
+              "children": [
+                {
+                  "name": "genomics",
+                  "children": []
+                },
+                {
+                  "name": "dicom",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "synovial-sarcoma",
+              "children": [
+                {
+                  "name": "genomics",
+                  "children": []
+                },
+                {
+                  "name": "dicom",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "MPNST",
+              "children": [
+                {
+                  "name": "genomics",
+                  "children": []
+                },
+                {
+                  "name": "dicom",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "fibrosarcoma",
+              "children": [
+                {
+                  "name": "genomics",
+                  "children": []
+                },
+                {
+                  "name": "dicom",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "bone-sarcoma",
+          "children": [
+            {
+              "name": "ewing-sarcoma",
+              "children": [
+                {
+                  "name": "genomics",
+                  "children": []
+                },
+                {
+                  "name": "dicom",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "osteosarcoma",
+              "children": [
+                {
+                  "name": "genomics",
+                  "children": []
+                },
+                {
+                  "name": "dicom",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "adamantinoma",
+              "children": [
+                {
+                  "name": "genomics",
+                  "children": []
+                },
+                {
+                  "name": "dicom",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "UPS",
+              "children": [
+                {
+                  "name": "genomics",
+                  "children": []
+                },
+                {
+                  "name": "dicom",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "chondrosarcoma",
+              "children": [
+                {
+                  "name": "genomics",
+                  "children": []
+                },
+                {
+                  "name": "dicom",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
