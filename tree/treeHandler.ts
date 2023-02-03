@@ -15,7 +15,25 @@ class treeHandler {
       JSON.stringify(tree)
     );
   }
+
+  async getLast() {
+    const ls = await fs.readdir(__dirname);
+    const jsons = ls.filter((file) => file.includes('.json'));
+    jsons.sort((a, b) => Number(a.split('_')[0]) - Number(b.split('_')[0]));
+    return jsons.sort().slice(-1)[0];
+  }
+
+  async load(name: string) {
+    const data = await fs.readFile(path.resolve(__dirname, name));
+    return JSON.parse(data.toString());
+  }
 }
 
 const tree = new treeHandler(schema);
-tree.create('tree', tree.schema);
+// tree.create('tree', tree.schema);
+(async function () {
+  const name = await tree.getLast();
+  console.log(name);
+  const file = await tree.load(name);
+  console.log(file);
+})();
