@@ -14,6 +14,12 @@ class treeHandler {
     this.schema = schema;
   }
 
+  /**
+   * Save tree to json file with unix timestamp.
+   *
+   * @param name of saved json file
+   * @param tree object which will be serialized to json file
+   */
   async save(name: string, tree: Object) {
     const timestamp = Date.now().toString();
     await fs.writeFile(
@@ -22,18 +28,46 @@ class treeHandler {
     );
   }
 
+  /**
+   * Get latest json file.
+   *
+   * @returns latest json file
+   * @throws if not file exists
+   */
   async getLast() {
     const ls = await fs.readdir(__dirname);
     const jsons = ls.filter((file) => file.includes('.json'));
+    if (jsons.length === 0) throw new Error('No file exists.');
     jsons.sort((a, b) => Number(a.split('_')[0]) - Number(b.split('_')[0]));
     return jsons.sort().slice(-1)[0];
   }
 
+  /**
+   * Get Tree object from given json file name.
+   *
+   * @param name of json file from which Tree object will be created
+   *
+   * @returns Tree object
+   */
   async load(name: string) {
     const data = await fs.readFile(path.resolve(__dirname, name));
     return JSON.parse(data.toString());
   }
 
+  /**
+   * Add data name and CID to the given tree branch.
+   *
+   * @param branch branch like path to the choosen node, e.g. `sarcoma/soft-tissue-sarcoma/liposarcoma/dicom`
+   * @param fileName file name which will be placed at given branch
+   * @param cid of the file which will be placed at given branch
+   * @param tree object which will be updated by given data
+   *
+   * @throws
+   * - if name in given branch and name in tree object is not found
+   * - if branch list after stop condition is less than 2
+   * (needed current-next values to find obj in one level deeper inside the tree)
+   * - if index of looking object is not found
+   */
   async add(branch: string, fileName: string, cid: string, tree: Tree) {
     if (branch.slice(-1) === '/') {
       branch = branch.slice(0, -1);
