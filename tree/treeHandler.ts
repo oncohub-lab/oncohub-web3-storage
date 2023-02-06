@@ -2,6 +2,12 @@ import * as fs from 'fs/promises';
 import * as path from 'path';
 import schema from '../schema.json';
 
+interface Tree {
+  name: string;
+  CID?: string;
+  children?: Array<Tree>;
+}
+
 class treeHandler {
   schema: Object;
   constructor(schema: Object) {
