@@ -8,7 +8,7 @@ class treeHandler {
     this.schema = schema;
   }
 
-  async create(name: string, tree: Object) {
+  async save(name: string, tree: Object) {
     const timestamp = Date.now().toString();
     await fs.writeFile(
       path.resolve(__dirname, timestamp.concat('_', name, '.json')),
