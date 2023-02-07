@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import treeHandler from '../tree/treeHandler';
+import TreeHandler from '../tree/treeHandler';
 
 describe('tree.TreeHandler', async function () {
   describe('lets testing...', async function () {

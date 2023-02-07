@@ -8,7 +8,7 @@ interface Tree {
   children?: Array<Tree>;
 }
 
-export default class treeHandler {
+export default class TreeHandler {
   schema: Object;
   constructor(schema: Object) {
     this.schema = schema;
