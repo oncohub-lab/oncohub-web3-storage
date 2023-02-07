@@ -11,7 +11,7 @@ describe('tree.TreeHandler', async function () {
   });
   describe('save/load json to tree', async function () {
     it('should save tree object to json file', async function () {
-      treeInstance.save('test_tree', treeInstance.schema);
+      await treeInstance.save('test_tree', treeInstance.schema);
       const ls = await fs.readdir(path.resolve(__dirname, '../tree'));
       const jsons = ls.filter((file) => file.includes('.json'));
       const founded = jsons.find((file) => file.includes('test_tree'));
@@ -23,8 +23,13 @@ describe('tree.TreeHandler', async function () {
       assert.equal(treeObj instanceof Object, true);
     });
     it('should save 3 json files and get latest json file', async function () {
-      console.log('test case 3');
-      assert.equal(1, 1);
+      await treeInstance.save('test_tree', treeInstance.schema);
+      await treeInstance.save('test_tree', treeInstance.schema);
+
+      const ts = Date.now().toString();
+      await treeInstance.save('test_tree', treeInstance.schema);
+      const name = await treeInstance.getLast();
+      assert.isAtLeast(Number(name.split('_')[0]), Number(ts));
     });
     after(async function () {
       const ls = await fs.readdir(path.resolve(__dirname, '../tree'));
