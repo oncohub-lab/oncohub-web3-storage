@@ -17,9 +17,10 @@ describe('tree.TreeHandler', async function () {
       const founded = jsons.find((file) => file.includes('test_tree'));
       assert.equal(typeof founded, 'string');
     });
-    it('should load json file to Tree object', async function () {
-      console.log('test case 2');
-      assert.equal(1, 1);
+    it('should load latest json file to Tree object', async function () {
+      const name = await treeInstance.getLast();
+      const treeObj = await treeInstance.load(name);
+      assert.equal(treeObj instanceof Object, true);
     });
     it('should save 3 json files and get latest json file', async function () {
       console.log('test case 3');
@@ -28,7 +29,6 @@ describe('tree.TreeHandler', async function () {
     after(async function () {
       const ls = await fs.readdir(path.resolve(__dirname, '../tree'));
       const jsons = ls.filter((file) => file.includes('test_tree.json'));
-      console.log(jsons);
 
       for (const json of jsons) {
         await fs.unlink(path.resolve(__dirname, '../tree/'.concat(json)));
