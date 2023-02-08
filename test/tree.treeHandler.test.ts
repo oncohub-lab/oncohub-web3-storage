@@ -4,6 +4,7 @@ import { assert } from 'chai';
 import TreeHandler from '../tree/treeHandler';
 import { Tree } from '../types';
 import schema from '../schema.json';
+import * as _ from 'underscore';
 
 describe('tree.TreeHandler', async function () {
   let treeInstance: TreeHandler;
@@ -102,6 +103,25 @@ describe('tree.TreeHandler', async function () {
         error = err;
       }
       assert.equal(error, "Error: tree doesn't contain file fotos");
+    });
+    it('should throw error: `file metadata already exists` and append only one metadata record when attempting to add twice the same to the same branch', async function () {
+      const branch = 'oh-root/sarcoma/soft-tissue-sarcoma/liposarcoma/dicom/';
+
+      let error: string;
+      try {
+        await treeInstance.add(branch, fileName, cid, treeObj);
+        await treeInstance.add(branch, fileName, cid, treeObj);
+      } catch (err) {
+        error = err;
+      }
+
+      const isDuplicated = _.isEqual(
+        treeObj.children[0].children[0].children[1].children[1].children[0],
+        treeObj.children[0].children[0].children[1].children[1].children[1]
+      );
+
+      assert.equal(error, 'Error: file metadata already exists');
+      assert.equal(isDuplicated, false);
     });
   });
 });
