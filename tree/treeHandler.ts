@@ -82,7 +82,7 @@ export default class TreeHandler {
     );
 
     if (idx === -1)
-      throw new Error(`no such file ${branchLst.slice(1, 2)[0]} inside tree`);
+      throw new Error(`tree doesn't contain file ${branchLst.slice(1, 2)[0]}`);
 
     await this.add(
       branchLst.slice(1).join('/'),

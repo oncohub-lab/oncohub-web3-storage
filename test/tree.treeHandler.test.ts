@@ -89,5 +89,21 @@ describe('tree.TreeHandler', async function () {
         'Error: current tree node name and branch node name mismatch'
       );
     });
+    it('should throw error: `no such file ... inside tree`', async function () {
+      const branchWithNoFileInTree =
+        'oh-root/sarcoma/soft-tissue-sarcoma/liposarcoma/fotos/';
+      const fileName = 'file_with_rt.zip';
+      const cid = '213082108048320348320483204830';
+      const name = await treeInstance.getLast();
+      const treeObj = await treeInstance.load(name);
+
+      let error: string;
+      try {
+        await treeInstance.add(branchWithNoFileInTree, fileName, cid, treeObj);
+      } catch (err) {
+        error = err;
+      }
+      assert.equal(error, "Error: tree doesn't contain file fotos");
+    });
   });
 });
