@@ -75,7 +75,7 @@ export default class TreeHandler {
     }
 
     if (branchLst[0] !== tree.name)
-      throw new Error(`current tree node name and branch node name mismatch`);
+      throw new Error('current tree node name and branch node name mismatch');
 
     const idx = tree.children.findIndex(
       (obj) => obj.name === branchLst.slice(1, 2)[0]

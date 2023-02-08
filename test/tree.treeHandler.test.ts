@@ -69,5 +69,25 @@ describe('tree.TreeHandler', async function () {
         treeObj.children[0].children[0].children[1].children[1].children[0].CID
       );
     });
+    it('should throw error: `current tree node name and branch node name mismatch` in case of inconsistency branch and tree', async function () {
+      const branchWithTypo =
+        'oh_root/sarcoma/soft-tissue-sarcoma/liposarcoma/dicom/';
+      const fileName = 'file_with_rt.zip';
+      const cid = '213082108048320348320483204830';
+      const name = await treeInstance.getLast();
+      const treeObj = await treeInstance.load(name);
+
+      let error: string;
+      try {
+        await treeInstance.add(branchWithTypo, fileName, cid, treeObj);
+      } catch (err) {
+        error = err;
+      }
+
+      assert.equal(
+        error,
+        'Error: current tree node name and branch node name mismatch'
+      );
+    });
   });
 });
