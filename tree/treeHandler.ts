@@ -49,7 +49,7 @@ export default class TreeHandler {
   }
 
   /**
-   * Add data name and CID to the given tree branch.
+   * Add metadata (data name and CID) to the given tree branch.
    *
    * @param branch branch like path to the choosen node, e.g. `sarcoma/soft-tissue-sarcoma/liposarcoma/dicom`
    * @param fileName file name which will be placed at given branch
@@ -58,8 +58,6 @@ export default class TreeHandler {
    *
    * @throws
    * - if name in given branch and name in tree object is not found
-   * - if branch list after stop condition is less than 2
-   * (needed current-next values to find obj in one level deeper inside the tree)
    * - if index of looking object is not found
    */
   async add(branch: string, fileName: string, cid: string, tree: Tree) {
@@ -68,7 +66,7 @@ export default class TreeHandler {
     }
     const branchLst = branch.split('/');
 
-    if (branchLst[0] == tree.name && branchLst.length === 1) {
+    if (branchLst[0] === tree.name && branchLst.length === 1) {
       tree.children.push({
         name: fileName,
         CID: cid,
@@ -76,12 +74,8 @@ export default class TreeHandler {
       return;
     }
 
-    if (branchLst[0] === tree.name)
+    if (branchLst[0] !== tree.name)
       throw new Error(`current tree node name and branch node name mismatch`);
-    if (branchLst.length <= 2)
-      throw new Error(
-        `to go deeper into tree, at least 2 items is needed (current and next)`
-      );
 
     const idx = tree.children.findIndex(
       (obj) => obj.name === branchLst.slice(1, 2)[0]

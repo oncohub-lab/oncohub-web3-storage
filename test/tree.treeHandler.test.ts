@@ -40,4 +40,34 @@ describe('tree.TreeHandler', async function () {
       }
     });
   });
+  describe('add file metadata to tree', async function () {
+    it('should add file name and CID to given branch', async function () {
+      const branch = 'oh-root/sarcoma/soft-tissue-sarcoma/liposarcoma/dicom/';
+      const fileName = 'file_with_rt.zip';
+      const cid = '213082108048320348320483204830';
+      const name = await treeInstance.getLast();
+      const treeObj = await treeInstance.load(name);
+
+      assert.equal(
+        undefined,
+        treeObj.children[0].children[0].children[1].children[1].children[0]
+          ?.name
+      );
+      assert.equal(
+        undefined,
+        treeObj.children[0].children[0].children[1].children[1].children[0]?.CID
+      );
+
+      await treeInstance.add(branch, fileName, cid, treeObj);
+
+      assert.equal(
+        fileName,
+        treeObj.children[0].children[0].children[1].children[1].children[0].name
+      );
+      assert.equal(
+        cid,
+        treeObj.children[0].children[0].children[1].children[1].children[0].CID
+      );
+    });
+  });
 });
