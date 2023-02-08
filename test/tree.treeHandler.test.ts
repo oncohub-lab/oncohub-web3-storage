@@ -2,11 +2,17 @@ import * as fs from 'fs/promises';
 import * as path from 'path';
 import { assert } from 'chai';
 import TreeHandler from '../tree/treeHandler';
+import { Tree } from '../types';
 import schema from '../schema.json';
 
 describe('tree.TreeHandler', async function () {
   let treeInstance: TreeHandler;
-  beforeEach(async function () {
+  let name: string;
+  let treeObj: Tree;
+  const cid = '213082108048320348320483204830';
+  const fileName = 'file_with_rt.zip';
+
+  before(async function () {
     treeInstance = new TreeHandler(schema);
   });
   describe('save/load json to tree', async function () {
@@ -40,13 +46,13 @@ describe('tree.TreeHandler', async function () {
       }
     });
   });
+  beforeEach(async function () {
+    name = await treeInstance.getLast();
+    treeObj = await treeInstance.load(name);
+  });
   describe('add file metadata to tree', async function () {
     it('should add file name and CID to given branch', async function () {
       const branch = 'oh-root/sarcoma/soft-tissue-sarcoma/liposarcoma/dicom/';
-      const fileName = 'file_with_rt.zip';
-      const cid = '213082108048320348320483204830';
-      const name = await treeInstance.getLast();
-      const treeObj = await treeInstance.load(name);
 
       assert.equal(
         undefined,
@@ -72,10 +78,6 @@ describe('tree.TreeHandler', async function () {
     it('should throw error: `current tree node name and branch node name mismatch` in case of inconsistency branch and tree', async function () {
       const branchWithTypo =
         'oh_root/sarcoma/soft-tissue-sarcoma/liposarcoma/dicom/';
-      const fileName = 'file_with_rt.zip';
-      const cid = '213082108048320348320483204830';
-      const name = await treeInstance.getLast();
-      const treeObj = await treeInstance.load(name);
 
       let error: string;
       try {
@@ -92,10 +94,6 @@ describe('tree.TreeHandler', async function () {
     it('should throw error: `no such file ... inside tree`', async function () {
       const branchWithNoFileInTree =
         'oh-root/sarcoma/soft-tissue-sarcoma/liposarcoma/fotos/';
-      const fileName = 'file_with_rt.zip';
-      const cid = '213082108048320348320483204830';
-      const name = await treeInstance.getLast();
-      const treeObj = await treeInstance.load(name);
 
       let error: string;
       try {
