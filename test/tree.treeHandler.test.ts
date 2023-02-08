@@ -114,7 +114,6 @@ describe('tree.TreeHandler', async function () {
       } catch (err) {
         error = err;
       }
-
       const isDuplicated = _.isEqual(
         treeObj.children[0].children[0].children[1].children[1].children[0],
         treeObj.children[0].children[0].children[1].children[1].children[1]

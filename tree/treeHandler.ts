@@ -67,6 +67,9 @@ export default class TreeHandler {
     const branchLst = branch.split('/');
 
     if (branchLst[0] === tree.name && branchLst.length === 1) {
+      if (this._isExists(tree.children, cid))
+        throw new Error('file metadata already exists');
+
       tree.children.push({
         name: fileName,
         CID: cid,
@@ -90,5 +93,15 @@ export default class TreeHandler {
       cid,
       tree.children[idx]
     );
+  }
+
+  _isExists(children: Array<Tree>, cid: string) {
+    let status = false;
+    children.forEach((obj) => {
+      if (obj.CID === cid) {
+        return (status = true);
+      }
+    });
+    return status;
   }
 }
