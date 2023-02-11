@@ -3,11 +3,6 @@ import * as path from 'path';
 import { Tree } from '../types';
 
 export default class TreeHandler {
-  schema: Object;
-  constructor(schema: Object) {
-    this.schema = schema;
-  }
-
   /**
    * Save tree to json file with unix timestamp.
    *
@@ -33,7 +28,7 @@ export default class TreeHandler {
     const jsons = ls.filter((file) => file.includes('.json'));
     if (jsons.length === 0) throw new Error('No file exists.');
     jsons.sort((a, b) => Number(a.split('_')[0]) - Number(b.split('_')[0]));
-    return jsons.sort().slice(-1)[0];
+    return jsons.slice(-1)[0];
   }
 
   /**

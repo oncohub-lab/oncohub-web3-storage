@@ -14,11 +14,11 @@ describe('tree.TreeHandler', async function () {
   const fileName = 'file_with_rt.zip';
 
   before(async function () {
-    treeInstance = new TreeHandler(schema);
+    treeInstance = new TreeHandler();
   });
   describe('save/load json to tree', async function () {
     it('should save tree object to json file', async function () {
-      await treeInstance.save('test_tree', treeInstance.schema);
+      await treeInstance.save('test_tree', schema);
       const ls = await fs.readdir(path.resolve(__dirname, '../tree'));
       const jsons = ls.filter((file) => file.includes('.json'));
       const founded = jsons.find((file) => file.includes('test_tree'));
@@ -30,11 +30,11 @@ describe('tree.TreeHandler', async function () {
       assert.equal(treeObj instanceof Object, true);
     });
     it('should save 3 json files and get latest json file', async function () {
-      await treeInstance.save('test_tree', treeInstance.schema);
-      await treeInstance.save('test_tree', treeInstance.schema);
+      await treeInstance.save('test_tree', schema);
+      await treeInstance.save('test_tree', schema);
 
       const ts = Date.now().toString();
-      await treeInstance.save('test_tree', treeInstance.schema);
+      await treeInstance.save('test_tree', schema);
       const name = await treeInstance.getLast();
       assert.isAtLeast(Number(name.split('_')[0]), Number(ts));
     });
