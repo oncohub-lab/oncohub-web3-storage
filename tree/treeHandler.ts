@@ -9,10 +9,10 @@ export default class TreeHandler {
    * @param name of saved json file
    * @param tree object which will be serialized to json file
    */
-  async save(name: string, tree: Object) {
+  async save(name: string, directory: string, tree: Object) {
     const timestamp = Date.now().toString();
     await fs.writeFile(
-      path.resolve(__dirname, timestamp.concat('_', name, '.json')),
+      path.resolve(directory, timestamp.concat('_', name, '.json')),
       JSON.stringify(tree)
     );
   }
@@ -23,10 +23,11 @@ export default class TreeHandler {
    * @returns latest json file
    * @throws if not file exists
    */
-  async getLast() {
-    const ls = await fs.readdir(__dirname);
-    const jsons = ls.filter((file) => file.includes('.json'));
+  async getLast(directory: string) {
+    const ls = await fs.readdir(directory);
+    let jsons = ls.filter((file) => file.includes('.json'));
     if (jsons.length === 0) throw new Error('No file exists.');
+    jsons = jsons.filter((json) => !isNaN(Number(json.split('_')[0])));
     jsons.sort((a, b) => Number(a.split('_')[0]) - Number(b.split('_')[0]));
     return jsons.slice(-1)[0];
   }
@@ -38,8 +39,8 @@ export default class TreeHandler {
    *
    * @returns Tree object
    */
-  async load(name: string) {
-    const data = await fs.readFile(path.resolve(__dirname, name));
+  async load(name: string, directory: string) {
+    const data = await fs.readFile(path.resolve(directory, name));
     return JSON.parse(data.toString());
   }
 

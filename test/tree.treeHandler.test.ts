@@ -18,38 +18,32 @@ describe('tree.TreeHandler', async function () {
   });
   describe('save/load json to tree', async function () {
     it('should save tree object to json file', async function () {
-      await treeInstance.save('test_tree', schema);
-      const ls = await fs.readdir(path.resolve(__dirname, '../tree'));
+      await treeInstance.save('test_tree', __dirname, schema);
+      const ls = await fs.readdir(path.resolve(__dirname));
       const jsons = ls.filter((file) => file.includes('.json'));
       const founded = jsons.find((file) => file.includes('test_tree'));
       assert.equal(typeof founded, 'string');
     });
     it('should load latest json file to Tree object', async function () {
-      const name = await treeInstance.getLast();
-      const treeObj = await treeInstance.load(name);
+      const name = await treeInstance.getLast(__dirname);
+      console.log('name: ', name);
+      const treeObj = await treeInstance.load(name, __dirname);
       assert.equal(treeObj instanceof Object, true);
     });
     it('should save 3 json files and get latest json file', async function () {
-      await treeInstance.save('test_tree', schema);
-      await treeInstance.save('test_tree', schema);
+      await treeInstance.save('test_tree', __dirname, schema);
+      await treeInstance.save('test_tree', __dirname, schema);
 
       const ts = Date.now().toString();
-      await treeInstance.save('test_tree', schema);
-      const name = await treeInstance.getLast();
+      await treeInstance.save('test_tree', __dirname, schema);
+      const name = await treeInstance.getLast(__dirname);
       assert.isAtLeast(Number(name.split('_')[0]), Number(ts));
-    });
-    after(async function () {
-      const ls = await fs.readdir(path.resolve(__dirname, '../tree'));
-      const jsons = ls.filter((file) => file.includes('test_tree.json'));
-
-      for (const json of jsons) {
-        await fs.unlink(path.resolve(__dirname, '../tree/'.concat(json)));
-      }
     });
   });
   beforeEach(async function () {
-    name = await treeInstance.getLast();
-    treeObj = await treeInstance.load(name);
+    await treeInstance.save('test_tree', __dirname, schema);
+    name = await treeInstance.getLast(__dirname);
+    treeObj = await treeInstance.load(name, __dirname);
   });
   describe('add file metadata to tree', async function () {
     it('should add file name and CID to given branch', async function () {

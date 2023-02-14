@@ -26,13 +26,19 @@ Because after saving data on IPFS we get CIDs and it is hard to track data struc
 After uploading a file on IPFS we collect metadata like: name, CID, size and add it to the proper branch in the Tree.
 Besides, the Tree object is also saved on IPFS and thanks to that we can hold only one CID which points to our Tree with all needed metadata.
 
-#### Put it all together
-
 ## How to install and run
+
+Install by npm: 
+
+`npm install oh-storage`
+
+or using yarn:
+
+`yarn add oh-storage`
 
 ## How to use
 
-## Team
+
 
 ## License
 
