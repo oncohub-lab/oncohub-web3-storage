@@ -1,5 +1,7 @@
 # oncohub-web3-storage
 
+[![GitHub tag (latest SenVer)](https://img.shields.io/github/v/tag/oncohub-lab/oncohub-web3-storage?style=flat-square)](https://www.npmjs.com/package/oh-storage-12)
+
 ## Description
 
 ### Genesis
