@@ -38,7 +38,83 @@ or using yarn:
 
 ## How to use
 
+Example code app.ts:
 
+```js
+import * as fs from 'fs/promises';
+import { storage } from 'oh-storage-12';
+
+// @ts-ignore
+const st = new storage.StorageHandler(process.env.WEB3_STORAGE_API_TOKEN);
+const tr = new storage.TreeHandler();
+
+async function createInitialTree() {
+  const schema = {
+    name: 'root',
+    children: [
+      {
+        name: 'dir1',
+        children: [
+          { name: 'file1', children: [] },
+          { name: 'file2', children: [] },
+        ],
+      },
+      {
+        name: 'dir2',
+        children: [
+          { name: 'file1', children: [] },
+          { name: 'file2', children: [] },
+        ],
+      },
+    ],
+  };
+
+  // save new schema to json
+  await tr.save('init_tree', __dirname, schema);
+}
+
+async function addTreeToIpfs() {
+  const name = await tr.getLast(__dirname);
+  const { cid, size } = await st.save('./' + name);
+  console.log(`Tree added to ipfs, cid: ${cid}, size ${size}`);
+}
+
+async function addFileToTree(treeBranch: string, filePath: string) {
+  // store file on ipfs
+  const { cid, size } = await st.save('./' + filePath);
+  console.log(`File added to ipfs, cid: ${cid}, size ${size}`);
+
+  // add new file to tree
+  const name = await tr.getLast(__dirname);
+  const treeObj = await tr.load(name, __dirname);
+  await tr.add(treeBranch, filePath, cid, size, treeObj);
+  await tr.save('new_tree', __dirname, treeObj);
+}
+
+(async function () {
+  const branch = 'root/dir1/file2/';
+  const newfile = 'newFile.txt';
+  // create new file
+  await fs.appendFile(
+    newfile,
+    'my new content which I would like to add to tree'
+  );
+  // create initial tree
+  await createInitialTree();
+  // add initial tree to ipfs
+  await addTreeToIpfs();
+  // add file to ipfs and update tree
+  await addFileToTree(branch, newfile);
+  // add updated tree to ipfs
+  await addTreeToIpfs();
+})();
+```
+
+Run in your terminal:
+
+```bash
+WEB3_STORAGE_API_TOKEN=<your_web3_storage_token> ts-node app.ts
+```
 
 ## License
 
