@@ -56,7 +56,13 @@ export default class TreeHandler {
    * - if name in given branch and name in tree object is not found
    * - if index of looking object is not found
    */
-  async add(branch: string, fileName: string, cid: string, tree: Tree) {
+  async add(
+    branch: string,
+    fileName: string,
+    cid: string,
+    size: Number,
+    tree: Tree
+  ) {
     if (branch.slice(-1) === '/') {
       branch = branch.slice(0, -1);
     }
@@ -69,6 +75,7 @@ export default class TreeHandler {
       tree.children.push({
         name: fileName,
         CID: cid,
+        size: size,
       });
       return;
     }
@@ -87,6 +94,7 @@ export default class TreeHandler {
       branchLst.slice(1).join('/'),
       fileName,
       cid,
+      size,
       tree.children[idx]
     );
   }

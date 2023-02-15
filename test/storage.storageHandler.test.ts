@@ -27,11 +27,11 @@ describe('storage.storageHandler', async function () {
     });
 
     it('should store file on ipfs and return cid and name of saved file', async function () {
-      const { cid, metadata } = await storageInstance.save(
+      const { cid, size } = await storageInstance.save(
         path.resolve(__dirname, './test_tree.json')
       );
       assert.equal(cid !== undefined, true);
-      assert.equal(metadata.length > 0, true);
+      assert.equal(size > 0, true);
     });
   });
 });

@@ -24,16 +24,11 @@ export default class StorageHandler {
     const files = await getFilesFromPath(pathToFile);
     const cid = await this.client.put(files);
 
-    const metadata = files.map((file) => {
-      const ls = file.name.split('/');
-      return {
-        name: ls[ls.length - 1],
-        // @ts-ignore
-        size: file.size,
-      };
-    });
+    // @ts-ignore
+    const sizes = files.map((file) => file.size);
+    const size = sizes.reduce((a, b) => a + b, 0);
 
-    return { cid, metadata };
+    return { cid, size };
   }
 
   /**

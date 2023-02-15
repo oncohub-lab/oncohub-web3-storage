@@ -11,6 +11,7 @@ describe('tree.TreeHandler', async function () {
   let name: string;
   let treeObj: Tree;
   const cid = '213082108048320348320483204830';
+  const size = 1234;
   const fileName = 'file_with_rt.zip';
 
   before(async function () {
@@ -59,7 +60,7 @@ describe('tree.TreeHandler', async function () {
         treeObj.children[0].children[0].children[1].children[1].children[0]?.CID
       );
 
-      await treeInstance.add(branch, fileName, cid, treeObj);
+      await treeInstance.add(branch, fileName, cid, size, treeObj);
 
       assert.equal(
         fileName,
@@ -76,7 +77,7 @@ describe('tree.TreeHandler', async function () {
 
       let error: string;
       try {
-        await treeInstance.add(branchWithTypo, fileName, cid, treeObj);
+        await treeInstance.add(branchWithTypo, fileName, cid, size, treeObj);
       } catch (err) {
         error = err;
       }
@@ -92,7 +93,13 @@ describe('tree.TreeHandler', async function () {
 
       let error: string;
       try {
-        await treeInstance.add(branchWithNoFileInTree, fileName, cid, treeObj);
+        await treeInstance.add(
+          branchWithNoFileInTree,
+          fileName,
+          cid,
+          size,
+          treeObj
+        );
       } catch (err) {
         error = err;
       }
@@ -103,8 +110,8 @@ describe('tree.TreeHandler', async function () {
 
       let error: string;
       try {
-        await treeInstance.add(branch, fileName, cid, treeObj);
-        await treeInstance.add(branch, fileName, cid, treeObj);
+        await treeInstance.add(branch, fileName, cid, size, treeObj);
+        await treeInstance.add(branch, fileName, cid, size, treeObj);
       } catch (err) {
         error = err;
       }
