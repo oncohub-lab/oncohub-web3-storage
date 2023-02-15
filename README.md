@@ -1,6 +1,8 @@
 # oncohub-web3-storage
 
-![npm](https://img.shields.io/npm/v/oh-storage-12?style=flat-square)
+
+
+[![npm](https://img.shields.io/npm/v/oh-storage-12?style=flat-square)](https://www.npmjs.com/package/oh-storage-12)
 
 ## Description
 
