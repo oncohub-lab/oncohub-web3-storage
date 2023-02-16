@@ -1,7 +1,7 @@
 # oncohub-web3-storage
 
 [![npm](https://img.shields.io/npm/v/oh-storage-12?style=flat-square)](https://www.npmjs.com/package/oh-storage-12)
-[![GitHub](https://img.shields.io/github/license/oncohub-lab/oncohub-lab)](https://github.com/oncohub-lab/oncohub-web3-storage/)
+[![GitHub](https://img.shields.io/github/license/oncohub-lab/oncohub-lab)](https://github.com/oncohub-lab/oncohub-web3-storage/blob/master/LICENSE)
 [![GitHub contributors](https://img.shields.io/github/contributors-anon/oncohub-lab/oncohub-web3-storage?style=flat-square)](https://github.com/oncohub-lab/oncohub-web3-storage/graphs/contributors)
 
 ## Description
