@@ -1,6 +1,6 @@
 export interface Tree {
   name: string;
   CID?: string;
-  size?: Number;
+  size?: number;
   children?: Array<Tree>;
 }

@@ -9,7 +9,7 @@ export default class TreeHandler {
    * @param name of saved json file
    * @param tree object which will be serialized to json file
    */
-  async save(name: string, directory: string, tree: Object) {
+  async save(name: string, directory: string, tree: object) {
     const timestamp = Date.now().toString();
     await fs.writeFile(path.resolve(directory, timestamp.concat('_', name, '.json')), JSON.stringify(tree));
   }
@@ -53,7 +53,7 @@ export default class TreeHandler {
    * - if name in given branch and name in tree object is not found
    * - if index of looking object is not found
    */
-  async add(branch: string, fileName: string, cid: string, size: Number, tree: Tree) {
+  async add(branch: string, fileName: string, cid: string, size: number, tree: Tree) {
     if (branch.slice(-1) === '/') {
       branch = branch.slice(0, -1);
     }
@@ -65,7 +65,7 @@ export default class TreeHandler {
       tree.children.push({
         name: fileName,
         CID: cid,
-        size: size,
+        size,
       });
       return;
     }
