@@ -1,5 +1,5 @@
 {
-  "name": "oh-storage",
+  "name": "oncohub-web3-storage",
   "version": "1.0.0",
   "main": "build/index.js",
   "license": "MIT",
@@ -7,6 +7,7 @@
     "build",
     "package.json",
     "package-lock.json",
+    "oh-storage.png",
     "README.md"
   ],
   "scripts": {

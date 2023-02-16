@@ -1,5 +1,9 @@
 # oncohub-web3-storage
 
+[![npm](https://img.shields.io/npm/v/oh-storage-12?style=flat-square)](https://www.npmjs.com/package/oh-storage-12)
+![GitHub](https://img.shields.io/github/license/oncohub-lab/oncohub-lab)
+![GitHub contributors](https://img.shields.io/github/contributors-anon/oncohub-lab/oncohub-web3-storage?style=flat-square)
+
 ## Description
 
 ### Genesis
@@ -30,11 +34,11 @@ Besides, the Tree object is also saved on IPFS and thanks to that we can hold on
 
 Install by npm: 
 
-`npm install oh-storage`
+`npm install oncohub-web3-storage`
 
 or using yarn:
 
-`yarn add oh-storage`
+`yarn add oncohub-web3-storage`
 
 ## How to use
 
@@ -42,7 +46,7 @@ Example code app.ts:
 
 ```js
 import * as fs from 'fs/promises';
-import { storage } from 'oh-storage-12';
+import { storage } from 'oncohub-web3-storage';
 
 // @ts-ignore
 const st = new storage.StorageHandler(process.env.WEB3_STORAGE_API_TOKEN);
