@@ -11,10 +11,7 @@ export default class TreeHandler {
    */
   async save(name: string, directory: string, tree: Object) {
     const timestamp = Date.now().toString();
-    await fs.writeFile(
-      path.resolve(directory, timestamp.concat('_', name, '.json')),
-      JSON.stringify(tree)
-    );
+    await fs.writeFile(path.resolve(directory, timestamp.concat('_', name, '.json')), JSON.stringify(tree));
   }
 
   /**
@@ -56,21 +53,14 @@ export default class TreeHandler {
    * - if name in given branch and name in tree object is not found
    * - if index of looking object is not found
    */
-  async add(
-    branch: string,
-    fileName: string,
-    cid: string,
-    size: Number,
-    tree: Tree
-  ) {
+  async add(branch: string, fileName: string, cid: string, size: Number, tree: Tree) {
     if (branch.slice(-1) === '/') {
       branch = branch.slice(0, -1);
     }
     const branchLst = branch.split('/');
 
     if (branchLst[0] === tree.name && branchLst.length === 1) {
-      if (this._isExists(tree.children, cid))
-        throw new Error('file metadata already exists');
+      if (this._isExists(tree.children, cid)) throw new Error('file metadata already exists');
 
       tree.children.push({
         name: fileName,
@@ -80,23 +70,13 @@ export default class TreeHandler {
       return;
     }
 
-    if (branchLst[0] !== tree.name)
-      throw new Error('current tree node name and branch node name mismatch');
+    if (branchLst[0] !== tree.name) throw new Error('current tree node name and branch node name mismatch');
 
-    const idx = tree.children.findIndex(
-      (obj) => obj.name === branchLst.slice(1, 2)[0]
-    );
+    const idx = tree.children.findIndex((obj) => obj.name === branchLst.slice(1, 2)[0]);
 
-    if (idx === -1)
-      throw new Error(`tree doesn't contain file ${branchLst.slice(1, 2)[0]}`);
+    if (idx === -1) throw new Error(`tree doesn't contain file ${branchLst.slice(1, 2)[0]}`);
 
-    await this.add(
-      branchLst.slice(1).join('/'),
-      fileName,
-      cid,
-      size,
-      tree.children[idx]
-    );
+    await this.add(branchLst.slice(1).join('/'), fileName, cid, size, tree.children[idx]);
   }
 
   _isExists(children: Array<Tree>, cid: string) {
